@@ -247,3 +247,31 @@ The effectiveness of each filter is analyzed based on:
 * Edge preservation
 
 
+
+# Discussion
+In this project, we evaluated the performance of Mean and Gaussian filters in removing different types of noise from grayscale images. Three noise models were tested: Gaussian noise, Salt & Pepper noise, and Speckle noise.
+
+From the quantitative results, the Gaussian filter achieved higher PSNR values than the Mean filter for Gaussian noise and Salt & Pepper noise. This is expected because the Gaussian filter uses weighted averaging, which aligns well with the statistical distribution of Gaussian noise. The weighted smoothing reduces noise while preserving more structural details compared to simple averaging.
+
+For Speckle noise, however, the Mean filter performed slightly better than the Gaussian filter in terms of PSNR. Speckle noise is multiplicative in nature, and both filters struggled to fully restore the image. This indicates that linear smoothing filters may not be optimal for multiplicative noise, and more advanced techniques such as median filtering or adaptive filters could produce better results.
+
+Visually, both filters reduced noise but introduced blurring. Increasing the kernel size would remove more noise but also increase detail loss. Therefore, a trade-off exists between noise reduction and edge preservation.
+
+## Strengths of this approach include:
+- Simple implementation using spatial domain filtering.
+- Clear quantitative evaluation using MSE and PSNR.
+- Direct visual comparison of results.
+- Both filters are computationally efficient and easy to implement using OpenCV. They are excellent for removing low-level additive noise and preparing images for edge detection.
+
+## Limitations include:
+- Only linear filters were tested.
+- Evaluation was performed on a single image.
+- Both methods are low-pass filters, meaning they inherently blur edges. They cannot distinguish between high-frequency noise and high-frequency edge details.
+
+## Real World Application
+- Pre-processing for OCR: Smoothing document scans to improve text recognition.
+- Privacy Masking: Blurring faces or license plates in datasets.
+- Medical Imaging: Reducing graininess in X-rays or Ultrasound frames before diagnostic analysis.
+  
+In real-world applications such as medical imaging and satellite image analysis, selecting the appropriate filter depends on the noise characteristics of the acquisition system. This experiment demonstrates that understanding the statistical nature of noise is essential for choosing the correct denoising method.
+
